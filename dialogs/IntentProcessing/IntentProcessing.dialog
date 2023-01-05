@@ -1,0 +1,68 @@
+{
+  "$kind": "Microsoft.AdaptiveDialog",
+  "$designer": {
+    "id": "9WC1D3",
+    "name": "IntentProcessing",
+    "comment": ""
+  },
+  "autoEndDialog": true,
+  "defaultResultProperty": "dialog.result",
+  "triggers": [
+    {
+      "$kind": "Microsoft.OnBeginDialog",
+      "$designer": {
+        "name": "BeginDialog",
+        "description": "",
+        "id": "G2hMOS"
+      },
+      "actions": [
+        {
+          "$kind": "Microsoft.HttpRequest",
+          "$designer": {
+            "id": "gyT2OH"
+          },
+          "resultProperty": "turn.results",
+          "method": "POST",
+          "url": "https://w0-clu.cognitiveservices.azure.com/language/:analyze-conversations?api-version=2022-10-01-preview",
+          "body": {
+            "kind": "Conversation",
+            "analysisInput": {
+              "conversationItem": {
+                "id": "${turn.activity.from.id}",
+                "text": "${turn.activity.text}",
+                "modality": "text",
+                "language": "en-us",
+                "participantId": "${turn.Activity.Recipient.id}"
+              }
+            },
+            "parameters": {
+              "projectName": "W0_CLU",
+              "verbose": true,
+              "deploymentName": "ricknmorty_model",
+              "stringIndexType": "TextElement_V8"
+            }
+          },
+          "responseType": "json"
+        },
+        {
+          "$kind": "Microsoft.SetProperty",
+          "$designer": {
+            "id": "UiINoP"
+          },
+          "property": "conversation.topIntent",
+          "value": "${turn.results.content.result.prediction.topIntent}"
+        },
+        {
+          "$kind": "Microsoft.SendActivity",
+          "$designer": {
+            "id": "BAn3TU"
+          },
+          "activity": "${SendActivity_BAn3TU()}"
+        }
+      ]
+    }
+  ],
+  "generator": "IntentProcessing.lg",
+  "recognizer": "IntentProcessing.lu.qna",
+  "id": "IntentProcessing"
+}

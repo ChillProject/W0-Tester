@@ -1,0 +1,9 @@
+[import](common.lg)
+
+# SendActivity_BAn3TU()
+[Activity
+    Text = ${SendActivity_BAn3TU_text()}
+]
+
+# SendActivity_BAn3TU_text()
+- ${conversation.topIntent} is being processed

@@ -156,6 +156,16 @@
                         }
                       ]
                     }
+                  ],
+                  "default": [
+                    {
+                      "$kind": "Microsoft.BeginDialog",
+                      "$designer": {
+                        "id": "cgmd2V"
+                      },
+                      "activityProcessed": true,
+                      "dialog": "IntentProcessing"
+                    }
                   ]
                 }
               ]
